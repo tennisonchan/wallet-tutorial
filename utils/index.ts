@@ -8,7 +8,7 @@ import {
 
 // *Step 3*: implement a function that gets an account's balance
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
-  if (!account) return;
+  if (!account) return 0;
 
   try {
     const connection = new Connection(clusterApiUrl(network), "confirmed");
