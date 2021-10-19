@@ -58,39 +58,23 @@ const TransactionModal = () => {
     });
   };
 
-  // *Step 4*: implement a function that transfer funds
+  // *Step 5*: implement a function that transfer funds
   const transfer = async () => {
-    // This line ensures the function returns before running if no account has been set
     if (!account) return;
 
-    // For start:
-    // console.log("Sign and Send not yet implemented!")
-    // return
-
     try {
-      // (a) instantiate a connection using clusterApiUrl with the active network
-      const connection = new Connection(clusterApiUrl(network), "confirmed");
-      // const connection = "";
       setTransactionSig("");
 
-      // (b) leverage the SystemProgram class to create transfer instructions
-      // that includes your account's public key, the public key from your
-      // sender field in the form, and the amount from the form
+      const connection = new Connection(clusterApiUrl(network), "confirmed");
+
       const instructions = SystemProgram.transfer({
         fromPubkey: account.publicKey,
         toPubkey: new PublicKey(form.to),
         lamports: form.amount,
       });
 
-      // (d) instantiate a transaction object and add the instructions
       const transaction = new Transaction().add(instructions);
-      // const transaction = {};
 
-      // const instructions = {};
-      
-
-      // (c) use your account to create a signers interface
-      // (note: signers is an array with an object with two properties)
       const signers = [
         {
           publicKey: account.publicKey,
@@ -98,33 +82,23 @@ const TransactionModal = () => {
         },
       ];
 
-      // const signers = [];
-
       setSending(true);
-
-      // (e) send the transaction and await its confirmation
       const confirmation = await sendAndConfirmTransaction(
         connection,
         transaction,
         signers
       );
-      // const confirmation = "";
-
       setTransactionSig(confirmation);
-
       setSending(false);
 
-      const updatedBalance = await refreshBalance(network, account)
-      // const updatedBalance = 0;
-
+      const updatedBalance = await refreshBalance(network, account);
       setBalance(updatedBalance);
       message.success(`Transaction confirmed`);
-      console.log(confirmation);
     } catch (error) {
-      console.log(error);
       message.error(
         "Transaction failed, please check your inputs and try again"
       );
+      console.log(error);
     }
   };
 

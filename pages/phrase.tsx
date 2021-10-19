@@ -19,26 +19,12 @@ const Phrase: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // *Step 1*: implement a function that generates a mnemonic
-    // when the page renders, and uses it to create an account
-    // (a) generate a mnemonic phrase by importing Bip39 and then implementing the appropriate method on the imported Bip39 instance
-
-    // ***Pre-built:
-    // const generatedMnemonic = "";
-    // ***Completed:
+    // *Step 1*: implement a function that generates a mnemonic when the page renders, and uses it to create a wallet (i.e. account)
     const generatedMnemonic = Bip39.generateMnemonic();
-
-    // This line saves the mnemonic phrase to context state so we can display it for the wallet user to copy
     setMnemonic(generatedMnemonic);
     
-    // ***Completed:
-    // (b) convert the mnemonic to seed bytes
     const seed = Bip39.mnemonicToSeedSync(generatedMnemonic).slice(0, 32)
-
-    // (c) use the seed to generate a new account (i.e. keypair)
     const newAccount = Keypair.fromSeed(seed);
-
-    // This line sets the account to context state so it can be used by the app
     setAccount(newAccount);
   }, []);
 

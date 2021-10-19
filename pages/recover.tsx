@@ -15,16 +15,13 @@ const Recover: NextPage = () => {
 
   const { account, setAccount, setMnemonic } = useContext(GlobalContext);
 
-  // *Step 5*: implement a function that recovers an account based on mnemonic
+  // *Step 6*: implement a function that recovers an account based on mnemonic
   const handleImport = async (values: any) => {
     setLoading(true);
     const inputMnemonic = values.phrase.trim().toLowerCase();
     setMnemonic(inputMnemonic);
 
-    // (a) convert the mnemonic to seed bytes
-    const seed = Bip39.mnemonicToSeedSync(inputMnemonic).slice(0, 32)
-
-    // (b) use the seed to import the account (i.e. keypair)
+    const seed = Bip39.mnemonicToSeedSync(inputMnemonic).slice(0, 32);
     const importedAccount = Keypair.fromSeed(seed);
     setAccount(importedAccount);
   };
@@ -103,6 +100,6 @@ const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export default Recover;

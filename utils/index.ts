@@ -6,56 +6,33 @@ import {
   Keypair,
 } from "@solana/web3.js";
 
-// *Step 2*: implement a function that gets an account's balance
+// *Step 3*: implement a function that gets an account's balance
 const refreshBalance = async (network: Cluster, account: Keypair | null) => {
-  if (!account) return 0;
+  if (!account) return;
 
   try {
-    // (a) instantiate a connection using clusterApiUrl with the active network
     const connection = new Connection(clusterApiUrl(network), "confirmed");
-    console.log(connection);
-    // console.log("Balance functionality not implemented yet!")
-    // const connection = "";
-    // (b) get the key from the active account
     const publicKey = account.publicKey;
-    // const publicKey = "";
-    // (c) get the account's balance from the connection instance
     const balance = await connection.getBalance(publicKey);
-    // const balance = 0
-    // (d) return the balance in SOL
-    // return balance / LAMPORTS_PER_SOL;
-    console.log(balance)
-    return balance / LAMPORTS_PER_SOL
+    return balance / LAMPORTS_PER_SOL;
   } catch (error) {
     console.log(error);
     return 0;
   }
 };
 
-// *Step 3*: implement a function that airdrops SOL into devnet account
+// *Step 4*: implement a function that airdrops SOL into devnet account
 const handleAirdrop = async (network: Cluster, account: Keypair | null) => {
-  // This line ensures the function returns before running if no account has been set
   if (!account) return;
 
   try {
-    // (a) instantiate a connection using clusterApiUrl with the active network
     const connection = new Connection(clusterApiUrl(network), "confirmed");
-    console.log("Airdrop functionality not implemented yet!")
-    // const connection = "";
-    // (b) get the key from the active account
     const publicKey = account.publicKey;
-    // const publicKey = "";
-    // (c) request the airdrop using the connection instance
-    // const confirmation = ""
     const confirmation = await connection.requestAirdrop(
       publicKey,
       LAMPORTS_PER_SOL
     );
-    // (d) confirm the transaction using the connection instance
-    console.log(confirmation)
     const result = await connection.confirmTransaction(confirmation, "confirmed");
-    console.log("result: ", result)
-    // This line returns the balance after the airdrop so the UI can be refreshed
     return await refreshBalance(network, account);
   } catch (error) {
     console.log(error);
