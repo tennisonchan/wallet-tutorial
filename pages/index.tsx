@@ -12,7 +12,10 @@ const Home: NextPage = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta charSet="utf-8" />
         <title>Wallet Tutorial</title>
-        <meta name="description" content="Web3 tutorial for Solana crypto wallet." />
+        <meta
+          name="description"
+          content="Web3 tutorial for Solana crypto wallet."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomeTitle>
@@ -21,8 +24,8 @@ const Home: NextPage = () => {
       </HomeTitle>
 
       <HomeGrid>
-        <CreateAccount></CreateAccount>
-        <RestoreAccount></RestoreAccount>
+        <CreateAccount />
+        <RestoreAccount />
       </HomeGrid>
     </>
   );
